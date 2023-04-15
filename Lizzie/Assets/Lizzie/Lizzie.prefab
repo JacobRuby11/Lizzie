@@ -127,10 +127,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496d1fa67dfb28843a40f3cc50abcaa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spring: 1
+  spring: 0.5
   toFollow: {fileID: 3823368155168717083}
   maxStretch: 30
-  momentum: 0
+  momentum: {x: 0, y: 0, z: 0}
+  Grounded: 0
 --- !u!1 &3823368154528342168
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,10 +230,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496d1fa67dfb28843a40f3cc50abcaa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spring: 3
+  spring: 0.5
   toFollow: {fileID: 3823368154981203685}
   maxStretch: 30
-  momentum: 0
+  momentum: {x: 0, y: 0, z: 0}
+  Grounded: 0
 --- !u!135 &3823368154528342164
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -389,10 +391,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496d1fa67dfb28843a40f3cc50abcaa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spring: 1
+  spring: 0.5
   toFollow: {fileID: 3823368153756411720}
   maxStretch: 30
-  momentum: 0
+  momentum: {x: 0, y: 0, z: 0}
+  Grounded: 0
 --- !u!1 &3823368154981203685
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,6 +614,7 @@ MonoBehaviour:
   Body4: {fileID: 3823368154831101949}
   Body5: {fileID: 3823368155172747262}
   speedmult: 3
+  Gravity: 0.5
 --- !u!1 &3823368155168717083
 GameObject:
   m_ObjectHideFlags: 0
@@ -709,10 +713,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496d1fa67dfb28843a40f3cc50abcaa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spring: 1
+  spring: 0.5
   toFollow: {fileID: 3823368154528342168}
   maxStretch: 30
-  momentum: 0
+  momentum: {x: 0, y: 0, z: 0}
+  Grounded: 0
 --- !u!135 &3823368155168717078
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -869,7 +874,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 496d1fa67dfb28843a40f3cc50abcaa2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spring: 1
+  spring: 0.5
   toFollow: {fileID: 3823368154831101949}
   maxStretch: 30
-  momentum: 0
+  momentum: {x: 0, y: 0, z: 0}
+  Grounded: 0

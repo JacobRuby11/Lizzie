@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
     public GameObject Body5;
 
     public float speedmult;
+    float Ym;
+    float Xm;
+    public float Gravity;
+
 
     void Awake() {
         controls = new Lizzie();
@@ -40,7 +44,10 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Head.transform.Translate(new Vector3(move.x, move.y, 0) * speedmult * Time.deltaTime);
+        Xm += move.x * Time.deltaTime;
+        Ym += move.y * Time.deltaTime;
+        Ym -= Gravity * Time.deltaTime;
+        Head.transform.Translate(new Vector3(Xm, Ym, 0) * speedmult * Time.deltaTime);
     }
     private void OnCollisionEnter(Collision other) {
         
