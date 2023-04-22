@@ -13,11 +13,13 @@ public class PlayerController : MonoBehaviour
     public GameObject Body3;
     public GameObject Body4;
     public GameObject Body5;
-
+    public LayerMask Stickable;
     public float speedmult;
     float Ym;
     float Xm;
     public float Gravity;
+
+    RaycastHit[] hitInfo;
 
 
     void Awake() {
@@ -47,10 +49,18 @@ public class PlayerController : MonoBehaviour
         Xm += move.x * Time.deltaTime;
         Ym += move.y * Time.deltaTime;
         Ym -= Gravity * Time.deltaTime;
+        GroundCheck();
         Head.transform.Translate(new Vector3(Xm, Ym, 0) * speedmult * Time.deltaTime);
     }
-    private void OnCollisionEnter(Collision other) {
+
+    void GroundCheck(){
         
+
+
+        Physics.Raycast(Head.transform.position,Vector3.up,out hitInfo[0],Stickable);
+
+
+
     }
 
 }

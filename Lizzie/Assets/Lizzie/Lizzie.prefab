@@ -12,9 +12,8 @@ GameObject:
   - component: {fileID: 3823368153756411717}
   - component: {fileID: 3823368153756411716}
   - component: {fileID: 3823368153756411723}
-  - component: {fileID: 3823368153756411722}
   - component: {fileID: 3721964051156853963}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,22 +98,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3823368153756411722
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823368153756411720}
-  serializedVersion: 2
-  m_Mass: 0.06775
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 1
 --- !u!114 &3721964051156853963
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132,6 +115,7 @@ MonoBehaviour:
   maxStretch: 30
   momentum: {x: 0, y: 0, z: 0}
   Grounded: 0
+  friction: 0
 --- !u!1 &3823368154528342168
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,8 +129,7 @@ GameObject:
   - component: {fileID: 3823368154528342165}
   - component: {fileID: 480604056168990376}
   - component: {fileID: 3823368154528342164}
-  - component: {fileID: 3823368154528342171}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -235,6 +218,7 @@ MonoBehaviour:
   maxStretch: 30
   momentum: {x: 0, y: 0, z: 0}
   Grounded: 0
+  friction: 0
 --- !u!135 &3823368154528342164
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -248,22 +232,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3823368154528342171
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823368154528342168}
-  serializedVersion: 2
-  m_Mass: 0.08925
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 1
 --- !u!1 &3823368154831101949
 GameObject:
   m_ObjectHideFlags: 0
@@ -276,9 +244,8 @@ GameObject:
   - component: {fileID: 3823368154831101946}
   - component: {fileID: 3823368154831101945}
   - component: {fileID: 3823368154831101944}
-  - component: {fileID: 3823368154831101951}
   - component: {fileID: 7916415765573856040}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -363,22 +330,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3823368154831101951
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823368154831101949}
-  serializedVersion: 2
-  m_Mass: 0.057
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 1
 --- !u!114 &7916415765573856040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -396,6 +347,7 @@ MonoBehaviour:
   maxStretch: 30
   momentum: {x: 0, y: 0, z: 0}
   Grounded: 0
+  friction: 0
 --- !u!1 &3823368154981203685
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,8 +360,7 @@ GameObject:
   - component: {fileID: 3823368154981203683}
   - component: {fileID: 3823368154981203682}
   - component: {fileID: 3823368154981203681}
-  - component: {fileID: 3823368154981203680}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -494,22 +445,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3823368154981203680
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823368154981203685}
-  serializedVersion: 2
-  m_Mass: 0.1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 1
 --- !u!1 &3823368155020106254
 GameObject:
   m_ObjectHideFlags: 0
@@ -521,7 +456,7 @@ GameObject:
   - component: {fileID: 3823368155020106255}
   - component: {fileID: 6393600099827919753}
   - component: {fileID: 2313069310014302317}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Lizzie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,6 +548,9 @@ MonoBehaviour:
   Body3: {fileID: 3823368153756411720}
   Body4: {fileID: 3823368154831101949}
   Body5: {fileID: 3823368155172747262}
+  Stickable:
+    serializedVersion: 2
+    m_Bits: 64
   speedmult: 3
   Gravity: 0.5
 --- !u!1 &3823368155168717083
@@ -628,8 +566,7 @@ GameObject:
   - component: {fileID: 3823368155168717079}
   - component: {fileID: 564645430385943035}
   - component: {fileID: 3823368155168717078}
-  - component: {fileID: 3823368155168717077}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -718,6 +655,7 @@ MonoBehaviour:
   maxStretch: 30
   momentum: {x: 0, y: 0, z: 0}
   Grounded: 0
+  friction: 0
 --- !u!135 &3823368155168717078
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -731,22 +669,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3823368155168717077
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823368155168717083}
-  serializedVersion: 2
-  m_Mass: 0.0785
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 1
 --- !u!1 &3823368155172747262
 GameObject:
   m_ObjectHideFlags: 0
@@ -759,9 +681,8 @@ GameObject:
   - component: {fileID: 3823368155172747259}
   - component: {fileID: 3823368155172747258}
   - component: {fileID: 3823368155172747257}
-  - component: {fileID: 3823368155172747256}
   - component: {fileID: 8002100052791046670}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -846,22 +767,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &3823368155172747256
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823368155172747262}
-  serializedVersion: 2
-  m_Mass: 0.01
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 126
-  m_CollisionDetection: 1
 --- !u!114 &8002100052791046670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,3 +784,4 @@ MonoBehaviour:
   maxStretch: 30
   momentum: {x: 0, y: 0, z: 0}
   Grounded: 0
+  friction: 0
