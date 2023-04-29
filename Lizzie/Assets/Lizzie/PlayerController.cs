@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     float Ym;
     float Xm;
     public float Gravity;
-
+    public int rayPrecision;
     RaycastHit[] hitInfo;
 
 
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        hitInfo = new RaycastHit[] {};
     }
 
     // Update is called once per frame
@@ -49,15 +49,27 @@ public class PlayerController : MonoBehaviour
         Xm += move.x * Time.deltaTime;
         Ym += move.y * Time.deltaTime;
         Ym -= Gravity * Time.deltaTime;
-        GroundCheck();
+        GroundCheck(Head);
+        GroundCheck(Body1);
+        GroundCheck(Body2);
+        GroundCheck(Body3);
+        GroundCheck(Body4);
+        GroundCheck(Body5);
         Head.transform.Translate(new Vector3(Xm, Ym, 0) * speedmult * Time.deltaTime);
     }
 
-    void GroundCheck(){
+    void GroundCheck(GameObject Part){
         
+        float angle = 0; 
+        for(int i=0; i<rayPrecision; i++){
+            float x = Mathf.Sin(angle);
+            float y = Mathf.Cos(angle);
+            angle += 2*Mathf.PI/rayPrecision;
+            Vector3 Dir=new Vector3(Part.transform.position.x+x,Part.transform.position.y+y,0);
+            Debug.DrawLine(Part.transform.position,Dir*10,Color.blue);
 
-
-        Physics.Raycast(Head.transform.position,Vector3.up,out hitInfo[0],Stickable);
+        }
+        //Physics.Raycast(Head.transform.position,Vector3.up,out hitInfo[0],Stickable);
 
 
 

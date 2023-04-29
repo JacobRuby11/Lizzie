@@ -553,6 +553,7 @@ MonoBehaviour:
     m_Bits: 64
   speedmult: 3
   Gravity: 0.5
+  rayPrecision: 16
 --- !u!1 &3823368155168717083
 GameObject:
   m_ObjectHideFlags: 0

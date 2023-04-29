@@ -38,7 +38,7 @@ public class Follow : MonoBehaviour
         if(gameObject.transform.position.y>toFollow.transform.position.y){
         MyDirection = (Mathf.Atan((gameObject.transform.position.x-toFollow.transform.position.x)/(gameObject.transform.position.y-toFollow.transform.position.y)))+(Mathf.Deg2Rad * 180);
         
-        Debug.Log ("move180");
+        
         }
         else{
         MyDirection = Mathf.Atan((gameObject.transform.position.x-toFollow.transform.position.x)/(gameObject.transform.position.y-toFollow.transform.position.y));
