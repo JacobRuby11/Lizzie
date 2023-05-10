@@ -13,17 +13,19 @@ public class PlayerController : MonoBehaviour
     public GameObject Body3;
     public GameObject Body4;
     public GameObject Body5;
-    public LayerMask Stickable;
+    public LayerMask Solid;
     public float speedmult;
     float Ym;
     float Xm;
     public float Gravity;
     public int rayPrecision;
     RaycastHit[] hitInfo;
-
+    bool Grounded;
+    Vector3 HeadMomentum;
 
     void Awake() {
         controls = new Lizzie();
+        Grounded = false;
     }
 
     public void OnMove(InputAction.CallbackContext context){
@@ -40,36 +42,44 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        hitInfo = new RaycastHit[] {};
+        hitInfo = new RaycastHit[rayPrecision];
     }
 
     // Update is called once per frame
     void Update()
     {
+
         Xm += move.x * Time.deltaTime;
-        Ym += move.y * Time.deltaTime;
+        Ym += move.y* 10 * Time.deltaTime;
         Ym -= Gravity * Time.deltaTime;
+        HeadMomentum = new Vector3(Xm, Ym, 0);
         GroundCheck(Head);
         GroundCheck(Body1);
         GroundCheck(Body2);
         GroundCheck(Body3);
         GroundCheck(Body4);
         GroundCheck(Body5);
-        Head.transform.Translate(new Vector3(Xm, Ym, 0) * speedmult * Time.deltaTime);
+        
+        Head.transform.Translate(HeadMomentum * speedmult * Time.deltaTime);
     }
 
     void GroundCheck(GameObject Part){
         
         float angle = 0; 
         for(int i=0; i<rayPrecision; i++){
+            hitInfo[i] = new RaycastHit();
             float x = Mathf.Sin(angle);
             float y = Mathf.Cos(angle);
             angle += 2*Mathf.PI/rayPrecision;
             Vector3 Dir=new Vector3(Part.transform.position.x+x,Part.transform.position.y+y,0);
-            Debug.DrawLine(Part.transform.position,Dir*10,Color.blue);
-
+            // Double check raycast magnitude for body parts
+            if(Physics.Raycast(Part.transform.position, new Vector3(Dir.x-Part.transform.position.x,Dir.y-Part.transform.position.y,0),out hitInfo[i],gameObject.transform.localScale.x * 0.6f, Solid)){
+                Debug.Log(hitInfo[i].collider.name);
+                Debug.DrawRay(Part.transform.position, new Vector3(Dir.x-Part.transform.position.x,Dir.y-Part.transform.position.y,0), Color.blue);
+                HeadMomentum += new Vector3(Dir.x-Part.transform.position.x,Dir.y-Part.transform.position.y,0) * -1;
+            }
         }
-        //Physics.Raycast(Head.transform.position,Vector3.up,out hitInfo[0],Stickable);
+        
 
 
 

@@ -548,7 +548,7 @@ MonoBehaviour:
   Body3: {fileID: 3823368153756411720}
   Body4: {fileID: 3823368154831101949}
   Body5: {fileID: 3823368155172747262}
-  Stickable:
+  Solid:
     serializedVersion: 2
     m_Bits: 64
   speedmult: 3
