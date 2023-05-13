@@ -64,19 +64,39 @@ public class PlayerController : MonoBehaviour
     }
 
     void GroundCheck(GameObject Part){
-        
+        //starting angle
         float angle = 0; 
+        // Loop by ray precision to cast rays around part
         for(int i=0; i<rayPrecision; i++){
+            // Store individual hit info
             hitInfo[i] = new RaycastHit();
+            // X coordinate of new angle
             float x = Mathf.Sin(angle);
+            // Y coordinate of new angle.
             float y = Mathf.Cos(angle);
+            // Add to angle to get next angle
             angle += 2*Mathf.PI/rayPrecision;
+            // Get vector from x and y coordinates based off of part's position
             Vector3 Dir=new Vector3(Part.transform.position.x+x,Part.transform.position.y+y,0);
-            // Double check raycast magnitude for body parts
+            // // // // TODO: Double check raycast magnitude for body parts, 0.6f scale barely peek out of head
             if(Physics.Raycast(Part.transform.position, new Vector3(Dir.x-Part.transform.position.x,Dir.y-Part.transform.position.y,0),out hitInfo[i],gameObject.transform.localScale.x * 0.6f, Solid)){
-                Debug.Log(hitInfo[i].collider.name);
-                Debug.DrawRay(Part.transform.position, new Vector3(Dir.x-Part.transform.position.x,Dir.y-Part.transform.position.y,0), Color.blue);
+                // Keeps us above the surface without effecting momentum
                 HeadMomentum += new Vector3(Dir.x-Part.transform.position.x,Dir.y-Part.transform.position.y,0) * -1;
+                // Calc slope of surface we are touching
+                float slope = Vector3.Angle(Vector3.up, hitInfo[i].normal);
+                // If slop is more than value, it will effect x and y momentum effect will change based off of y input
+                if(slope > 60 ){
+                    Xm *= -0.1f;
+                    if(Mathf.Abs(move.y) <= 0.1f){
+                        if (Ym < 0f) {Ym *= -0.5f;}
+                    }
+                }
+                else{
+                    if (Ym < 0f) {Ym *= -0.5f;}
+                }
+
+
+                
             }
         }
         

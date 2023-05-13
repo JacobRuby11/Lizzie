@@ -6,17 +6,24 @@ using UnityEngine.InputSystem;
 public class CameraFallow : MonoBehaviour
 {
     public GameObject Lizzie;
-    public float fallowspeed = 3f;
+    public float fallowspeed;
     private Vector3 offset;
-    public bool joined = false;
+    public bool joined;
+    Vector3 targetPos;
+
+    void Start(){
+        joined = false;
+    }
   
 
     void Update()
     {
         if(joined){
-            offset = transform.position - Lizzie.transform.position;
-            transform.position = Vector3.Lerp(transform.position, Lizzie.transform.position + offset, fallowspeed * Time.deltaTime);
+            targetPos = Lizzie.transform.TransformPoint(Lizzie.transform.localPosition);
+            offset = transform.position - targetPos;
+            transform.position = Vector3.Lerp(transform.position, targetPos + offset, fallowspeed * Time.deltaTime);
             transform.LookAt(Lizzie.transform);
+            Debug.Log(targetPos);
         }
     }
 

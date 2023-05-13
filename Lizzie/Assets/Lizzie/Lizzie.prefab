@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 3823368154981203681}
   m_Layer: 3
   m_Name: Head
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -552,7 +552,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   speedmult: 3
-  Gravity: 0.5
+  Gravity: 2
   rayPrecision: 16
 --- !u!1 &3823368155168717083
 GameObject:

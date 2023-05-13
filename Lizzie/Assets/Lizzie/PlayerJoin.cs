@@ -23,7 +23,8 @@ public class PlayerJoin : MonoBehaviour
 
     void OnPlayerJoined(PlayerInput playerInput){
         Debug.Log("HI");
-        cam.GetComponent<CameraFallow>().Lizzie = playerInput.gameObject;
+        // Get the head from lizzies prefab when she spawns.
+        cam.GetComponent<CameraFallow>().Lizzie = playerInput.gameObject.transform.GetChild(0).gameObject;
         cam.GetComponent<CameraFallow>().joined = true;
     }
 }
