@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     public GameObject Body5;
     public LayerMask Solid;
     public float speedmult;
+    public float maxStretch;
+    public float spring;
+    public float friction;
     float Ym;
     float Xm;
     public float Gravity;
@@ -22,6 +25,14 @@ public class PlayerController : MonoBehaviour
     RaycastHit[] hitInfo;
     bool Grounded;
     Vector3 HeadMomentum;
+    Part head;
+    Part body1;
+    Part body2;
+    Part body3;
+    Part body4;
+    Part body5;
+
+
 
     void Awake() {
         controls = new Lizzie();
@@ -43,6 +54,12 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         hitInfo = new RaycastHit[rayPrecision];
+        head = new Part(Head);
+        body1 = new Part(Body1);
+        body2 = new Part(Body2);
+        body3 = new Part(Body3);
+        body4 = new Part(Body4);
+        body5 = new Part(Body5);
     }
 
     // Update is called once per frame
@@ -53,17 +70,23 @@ public class PlayerController : MonoBehaviour
         Ym += move.y* 10 * Time.deltaTime;
         Ym -= Gravity * Time.deltaTime;
         HeadMomentum = new Vector3(Xm, Ym, 0);
-        GroundCheck(Head);
-        GroundCheck(Body1);
-        GroundCheck(Body2);
-        GroundCheck(Body3);
-        GroundCheck(Body4);
-        GroundCheck(Body5);
+        GroundCheck(head);
+        GroundCheck(body1);
+        GroundCheck(body2);
+        GroundCheck(body3);
+        GroundCheck(body4);
+        GroundCheck(body5);
+
+        FollowObject(head, body1);
+        FollowObject(body1, body2);
+        FollowObject(body2, body3);
+        FollowObject(body3, body4);
+        FollowObject(body4, body5);
         
-        Head.transform.Translate(HeadMomentum * speedmult * Time.deltaTime);
+       // Head.transform.Translate(HeadMomentum * speedmult * Time.deltaTime);
     }
 
-    void GroundCheck(GameObject Part){
+    void GroundCheck(Part p){
         //starting angle
         float angle = 0; 
         // Loop by ray precision to cast rays around part
@@ -77,11 +100,13 @@ public class PlayerController : MonoBehaviour
             // Add to angle to get next angle
             angle += 2*Mathf.PI/rayPrecision;
             // Get vector from x and y coordinates based off of part's position
-            Vector3 Dir=new Vector3(Part.transform.position.x+x,Part.transform.position.y+y,0);
+            Vector3 Dir=new Vector3(p.obj.transform.position.x+x,p.obj.transform.position.y+y,0);
+
+            
             // // // // TODO: Double check raycast magnitude for body parts, 0.6f scale barely peek out of head
-            if(Physics.Raycast(Part.transform.position, new Vector3(Dir.x-Part.transform.position.x,Dir.y-Part.transform.position.y,0),out hitInfo[i],gameObject.transform.localScale.x * 0.6f, Solid)){
+            if(Physics.Raycast(p.obj.transform.position, new Vector3(Dir.x-p.obj.transform.position.x,Dir.y-p.obj.transform.position.y,0),out hitInfo[i],gameObject.transform.localScale.x * 0.6f, Solid)){
                 // Keeps us above the surface without effecting momentum
-                HeadMomentum += new Vector3(Dir.x-Part.transform.position.x,Dir.y-Part.transform.position.y,0) * -1;
+                p.momentum += new Vector3(Dir.x-p.obj.transform.position.x,Dir.y-p.obj.transform.position.y,0) * -1;
                 // Calc slope of surface we are touching
                 float slope = Vector3.Angle(Vector3.up, hitInfo[i].normal);
                 // If slop is more than value, it will effect x and y momentum effect will change based off of y input
@@ -105,4 +130,43 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    void FollowObject(Part toFollow, Part p){
+        float MyDirection;
+        float TargetX;
+        float TargetY;
+
+        if(gameObject.transform.position.y>toFollow.obj.transform.position.y){
+            MyDirection = (Mathf.Atan((gameObject.transform.position.x-toFollow.obj.transform.position.x)/(gameObject.transform.position.y-toFollow.obj.transform.position.y)))+(Mathf.Deg2Rad * 180);
+        }
+        else{
+            MyDirection = Mathf.Atan((gameObject.transform.position.x-toFollow.obj.transform.position.x)/(gameObject.transform.position.y-toFollow.obj.transform.position.y));
+        }
+        TargetX = toFollow.obj.transform.position.x - maxStretch*Mathf.Sin(MyDirection);
+        TargetY = toFollow.obj.transform.position.y - maxStretch*Mathf.Cos(MyDirection);
+
+        p.momentum += new Vector3((TargetX-gameObject.transform.position.x)/spring,((TargetY-gameObject.transform.position.y)/spring),0) * Time.deltaTime;
+        p.momentum *= Mathf.Pow(friction, Time.deltaTime);
+
+        if(Grounded)
+
+        transform.position += p.momentum *Time.deltaTime;
+        
+        //transform.LookAt(toFollow.transform, Vector3.up);
+        //transform.Translate(transform.forward * strength * (distance-maxStretch));
+        //transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+    }
+
+}
+
+
+
+struct Part{
+    public GameObject obj;
+    public Vector3 momentum;
+    public bool grounded;
+    public Part(GameObject g){
+        obj = g;
+        momentum = new Vector3();
+        grounded = false;
+    }
 }

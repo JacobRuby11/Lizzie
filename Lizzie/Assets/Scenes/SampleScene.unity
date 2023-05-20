@@ -843,7 +843,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Lizzie: {fileID: 3823368155020106254, guid: c71caca2a11d74d4f9cf66197c9bc5fb, type: 3}
-  fallowspeed: 10
+  fallowspeed: 5
+  offset: {x: 0, y: 5, z: -15}
   joined: 0
 --- !u!1 &1754540843
 GameObject:

@@ -7,9 +7,10 @@ public class CameraFallow : MonoBehaviour
 {
     public GameObject Lizzie;
     public float fallowspeed;
-    private Vector3 offset;
+    public Vector3 offset;
     public bool joined;
     Vector3 targetPos;
+
 
     void Start(){
         joined = false;
@@ -19,11 +20,10 @@ public class CameraFallow : MonoBehaviour
     void Update()
     {
         if(joined){
-            targetPos = Lizzie.transform.TransformPoint(Lizzie.transform.localPosition);
-            offset = transform.position - targetPos;
-            transform.position = Vector3.Lerp(transform.position, targetPos + offset, fallowspeed * Time.deltaTime);
+            targetPos = Lizzie.transform.position + offset;
+            transform.position = Vector3.Lerp(transform.position, targetPos, fallowspeed * Time.deltaTime);
             transform.LookAt(Lizzie.transform);
-            Debug.Log(targetPos);
+            
         }
     }
 

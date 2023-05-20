@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3823368153756411717}
   - component: {fileID: 3823368153756411716}
   - component: {fileID: 3823368153756411723}
-  - component: {fileID: 3721964051156853963}
   m_Layer: 3
   m_Name: Body (3)
   m_TagString: Untagged
@@ -98,24 +97,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3721964051156853963
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823368153756411720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496d1fa67dfb28843a40f3cc50abcaa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spring: 0.5
-  toFollow: {fileID: 3823368155168717083}
-  maxStretch: 30
-  momentum: {x: 0, y: 0, z: 0}
-  Grounded: 0
-  friction: 0
 --- !u!1 &3823368154528342168
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,7 +108,6 @@ GameObject:
   - component: {fileID: 3823368154528342169}
   - component: {fileID: 3823368154528342166}
   - component: {fileID: 3823368154528342165}
-  - component: {fileID: 480604056168990376}
   - component: {fileID: 3823368154528342164}
   m_Layer: 3
   m_Name: Body (1)
@@ -201,24 +181,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &480604056168990376
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823368154528342168}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496d1fa67dfb28843a40f3cc50abcaa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spring: 0.5
-  toFollow: {fileID: 3823368154981203685}
-  maxStretch: 30
-  momentum: {x: 0, y: 0, z: 0}
-  Grounded: 0
-  friction: 0
 --- !u!135 &3823368154528342164
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -244,7 +206,6 @@ GameObject:
   - component: {fileID: 3823368154831101946}
   - component: {fileID: 3823368154831101945}
   - component: {fileID: 3823368154831101944}
-  - component: {fileID: 7916415765573856040}
   m_Layer: 3
   m_Name: Body (4)
   m_TagString: Untagged
@@ -330,24 +291,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7916415765573856040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823368154831101949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496d1fa67dfb28843a40f3cc50abcaa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spring: 0.5
-  toFollow: {fileID: 3823368153756411720}
-  maxStretch: 30
-  momentum: {x: 0, y: 0, z: 0}
-  Grounded: 0
-  friction: 0
 --- !u!1 &3823368154981203685
 GameObject:
   m_ObjectHideFlags: 0
@@ -565,7 +508,6 @@ GameObject:
   - component: {fileID: 3823368155168717076}
   - component: {fileID: 3823368155168717072}
   - component: {fileID: 3823368155168717079}
-  - component: {fileID: 564645430385943035}
   - component: {fileID: 3823368155168717078}
   m_Layer: 3
   m_Name: Body (2)
@@ -639,24 +581,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &564645430385943035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823368155168717083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496d1fa67dfb28843a40f3cc50abcaa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spring: 0.5
-  toFollow: {fileID: 3823368154528342168}
-  maxStretch: 30
-  momentum: {x: 0, y: 0, z: 0}
-  Grounded: 0
-  friction: 0
 --- !u!135 &3823368155168717078
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -682,7 +606,6 @@ GameObject:
   - component: {fileID: 3823368155172747259}
   - component: {fileID: 3823368155172747258}
   - component: {fileID: 3823368155172747257}
-  - component: {fileID: 8002100052791046670}
   m_Layer: 3
   m_Name: Body (5)
   m_TagString: Untagged
@@ -768,21 +691,3 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8002100052791046670
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823368155172747262}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 496d1fa67dfb28843a40f3cc50abcaa2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spring: 0.5
-  toFollow: {fileID: 3823368154831101949}
-  maxStretch: 30
-  momentum: {x: 0, y: 0, z: 0}
-  Grounded: 0
-  friction: 0
