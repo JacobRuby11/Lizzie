@@ -32,8 +32,6 @@ public class PlayerController : MonoBehaviour
     Part body4;
     Part body5;
 
-
-
     void Awake() {
         controls = new Lizzie();
         Grounded = false;
@@ -67,26 +65,26 @@ public class PlayerController : MonoBehaviour
     {
 
         Xm += move.x * Time.deltaTime;
-        Ym += move.y* 10 * Time.deltaTime;
+        Ym += move.y * 10 * Time.deltaTime;
         Ym -= Gravity * Time.deltaTime;
-        HeadMomentum = new Vector3(Xm, Ym, 0);
-        GroundCheck(head);
-        GroundCheck(body1);
-        GroundCheck(body2);
-        GroundCheck(body3);
-        GroundCheck(body4);
-        GroundCheck(body5);
+        head.momentum = new Vector3(Xm, Ym, 0);
+        GroundCheck(ref head);
+        GroundCheck(ref body1);
+        GroundCheck(ref body2); 
+        GroundCheck(ref body3); 
+        GroundCheck(ref body4); 
+        GroundCheck(ref body5); 
 
-        FollowObject(head, body1);
-        FollowObject(body1, body2);
-        FollowObject(body2, body3);
-        FollowObject(body3, body4);
-        FollowObject(body4, body5);
-        
-       // Head.transform.Translate(HeadMomentum * speedmult * Time.deltaTime);
+        FollowObject(head, ref body1);
+        FollowObject(body1, ref body2);
+        FollowObject(body2, ref body3);
+        FollowObject(body3, ref body4);
+        FollowObject(body4, ref body5);
+               
+        head.obj.transform.Translate(head.momentum * speedmult * Time.deltaTime);
     }
 
-    void GroundCheck(Part p){
+    void GroundCheck(ref Part p){
         //starting angle
         float angle = 0; 
         // Loop by ray precision to cast rays around part
@@ -118,55 +116,67 @@ public class PlayerController : MonoBehaviour
                 }
                 else{
                     if (Ym < 0f) {Ym *= -0.5f;}
-                }
-
-
-                
+                }   
             }
         }
-        
-
-
-
     }
 
-    void FollowObject(Part toFollow, Part p){
-        float MyDirection;
-        float TargetX;
-        float TargetY;
+    void FollowObject(Part toFollow, ref Part p){
+    
+        Vector3 dir = toFollow.obj.transform.position - p.obj.transform.position;
+        float distance = Vector3.Distance(toFollow.obj.transform.position, p.obj.transform.position);
+        dir = dir.normalized * distance/10f;
+        /**
+        if(p.grounded){
+            p.yVel = 0;
+        }
+        else{
+            p.yVel -= (Gravity * Time.deltaTime);
+        }
+        **/
+        if(distance > 0.5){
+            p.obj.transform.Translate(dir);
+        }
 
-        if(gameObject.transform.position.y>toFollow.obj.transform.position.y){
+
+        //float MyDirection;
+        //float TargetX;
+        //float TargetY =0;
+        /**
+        if(p.obj.transform.position.y>toFollow.obj.transform.position.y){
             MyDirection = (Mathf.Atan((gameObject.transform.position.x-toFollow.obj.transform.position.x)/(gameObject.transform.position.y-toFollow.obj.transform.position.y)))+(Mathf.Deg2Rad * 180);
         }
         else{
             MyDirection = Mathf.Atan((gameObject.transform.position.x-toFollow.obj.transform.position.x)/(gameObject.transform.position.y-toFollow.obj.transform.position.y));
         }
-        TargetX = toFollow.obj.transform.position.x - maxStretch*Mathf.Sin(MyDirection);
-        TargetY = toFollow.obj.transform.position.y - maxStretch*Mathf.Cos(MyDirection);
+        **/
 
-        p.momentum += new Vector3((TargetX-gameObject.transform.position.x)/spring,((TargetY-gameObject.transform.position.y)/spring),0) * Time.deltaTime;
-        p.momentum *= Mathf.Pow(friction, Time.deltaTime);
+        //TargetX = toFollow.obj.transform.position.x - maxStretch*Mathf.Sin(MyDirection);
+        //TargetY = toFollow.obj.transform.position.y - maxStretch*Mathf.Cos(MyDirection);
 
-        if(Grounded)
-
-        transform.position += p.momentum *Time.deltaTime;
         
-        //transform.LookAt(toFollow.transform, Vector3.up);
-        //transform.Translate(transform.forward * strength * (distance-maxStretch));
-        //transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
+        //p.momentum += new Vector3((TargetX-gameObject.transform.position.x)/spring,((TargetY-gameObject.transform.position.y)/spring),0) * Time.deltaTime;
+        //p.momentum *= Mathf.Pow(friction, Time.deltaTime);
+
+        //float distance = Vector3.Distance(toFollow.obj.transform.position, p.obj.transform.position);
+
+        //p.obj.transform.position += p.momentum *Time.deltaTime;
+        
+        //p.obj.transform.LookAt(toFollow.obj.transform, Vector3.up);
+        //p.obj.transform.Translate(transform.forward * (distance-maxStretch));
+        //p.obj.transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }
-
 }
-
-
 
 struct Part{
     public GameObject obj;
     public Vector3 momentum;
     public bool grounded;
+    public float yVel;
     public Part(GameObject g){
         obj = g;
         momentum = new Vector3();
         grounded = false;
+        yVel = 0;
     }
 }
