@@ -86,8 +86,9 @@ public class PlayerController : MonoBehaviour
 
     void GroundCheck(ref Part p){
         //starting angle
-        float angle = 0; 
+        float angle = 0;
         // Loop by ray precision to cast rays around part
+        p.grounded = false;
         for(int i=0; i<rayPrecision; i++){
             // Store individual hit info
             hitInfo[i] = new RaycastHit();
@@ -103,19 +104,21 @@ public class PlayerController : MonoBehaviour
             
             // // // // TODO: Double check raycast magnitude for body parts, 0.6f scale barely peek out of head
             if(Physics.Raycast(p.obj.transform.position, new Vector3(Dir.x-p.obj.transform.position.x,Dir.y-p.obj.transform.position.y,0),out hitInfo[i],gameObject.transform.localScale.x * 0.6f, Solid)){
+                p.grounded = true;
                 // Keeps us above the surface without effecting momentum
                 p.momentum += new Vector3(Dir.x-p.obj.transform.position.x,Dir.y-p.obj.transform.position.y,0) * -1;
                 // Calc slope of surface we are touching
                 float slope = Vector3.Angle(Vector3.up, hitInfo[i].normal);
                 // If slop is more than value, it will effect x and y momentum effect will change based off of y input
                 if(slope > 60 ){
-                    Xm *= -0.1f;
+                    Xm = 0;
                     if(Mathf.Abs(move.y) <= 0.1f){
-                        if (Ym < 0f) {Ym *= -0.5f;}
+                        //if (Ym < -0.5f) {Ym *= -0.5f;}
+                        Ym = 0;
                     }
                 }
                 else{
-                    if (Ym < 0f) {Ym *= -0.5f;}
+                    if (Ym < -0.5f) {Ym *= -0.5f;}
                 }   
             }
         }
@@ -126,15 +129,29 @@ public class PlayerController : MonoBehaviour
         Vector3 dir = toFollow.obj.transform.position - p.obj.transform.position;
         float distance = Vector3.Distance(toFollow.obj.transform.position, p.obj.transform.position);
         dir = dir.normalized * distance/10f;
-        /**
+       
         if(p.grounded){
             p.yVel = 0;
         }
         else{
             p.yVel -= (Gravity * Time.deltaTime);
         }
-        **/
+        
+        
         if(distance > 0.5){
+            // FOllOW
+            dir += p.yVel * Vector3.up * Time.deltaTime;
+            p.obj.transform.Translate(dir);
+            p.momentum.y += dir.y * 0.5f;
+            p.momentum.x += dir.x * 0.5f;
+        }
+        else
+        {
+            // ONLY GRAVITY
+            Debug.Log("only gravity");
+            dir.x = 0;
+            dir.y = 0;
+            dir += p.yVel * Vector3.up * Time.deltaTime;
             p.obj.transform.Translate(dir);
         }
 
