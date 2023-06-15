@@ -52,22 +52,22 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         hitInfo = new RaycastHit[rayPrecision];
-        head = new Part(Head);
-        body1 = new Part(Body1);
-        body2 = new Part(Body2);
-        body3 = new Part(Body3);
-        body4 = new Part(Body4);
-        body5 = new Part(Body5);
+        head = new Part(Head, true);
+        body1 = new Part(Body1, false);
+        body2 = new Part(Body2, false);
+        body3 = new Part(Body3, false);
+        body4 = new Part(Body4, false);
+        body5 = new Part(Body5, false);
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        head.momentum.x += move.x * Time.deltaTime;
+        head.momentum.y += move.y * 10 * Time.deltaTime;
+        head.momentum.y -= Gravity * Time.deltaTime;
 
-        Xm += move.x * Time.deltaTime;
-        Ym += move.y * 10 * Time.deltaTime;
-        Ym -= Gravity * Time.deltaTime;
-        head.momentum = new Vector3(Xm, Ym, 0);
         GroundCheck(ref head);
         GroundCheck(ref body1);
         GroundCheck(ref body2); 
@@ -106,20 +106,21 @@ public class PlayerController : MonoBehaviour
             if(Physics.Raycast(p.obj.transform.position, new Vector3(Dir.x-p.obj.transform.position.x,Dir.y-p.obj.transform.position.y,0),out hitInfo[i],gameObject.transform.localScale.x * 0.6f, Solid)){
                 p.grounded = true;
                 // Keeps us above the surface without effecting momentum
-                p.momentum += new Vector3(Dir.x-p.obj.transform.position.x,Dir.y-p.obj.transform.position.y,0) * -1;
-                // Calc slope of surface we are touching
+                p.momentum += new Vector3(Dir.x-p.obj.transform.position.x,Dir.y-p.obj.transform.position.y,0) * -1f;
+                // calc slope
                 float slope = Vector3.Angle(Vector3.up, hitInfo[i].normal);
-                // If slop is more than value, it will effect x and y momentum effect will change based off of y input
-                if(slope > 60 ){
-                    Xm = 0;
+
+                if(slope > 60){
+                    if(Mathf.Abs(move.x) < 0.1f){
+                        p.momentum.x = 0;
+                    }
                     if(Mathf.Abs(move.y) <= 0.1f){
-                        //if (Ym < -0.5f) {Ym *= -0.5f;}
-                        Ym = 0;
+                        p.momentum.y = 0;
                     }
                 }
                 else{
-                    if (Ym < -0.5f) {Ym *= -0.5f;}
-                }   
+                    p.momentum.y = 0;
+                }  
             }
         }
     }
@@ -141,19 +142,19 @@ public class PlayerController : MonoBehaviour
         if(distance > 0.5){
             // FOllOW
             dir += p.yVel * Vector3.up * Time.deltaTime;
-            p.obj.transform.Translate(dir);
             p.momentum.y += dir.y * 0.5f;
             p.momentum.x += dir.x * 0.5f;
         }
         else
         {
             // ONLY GRAVITY
-            Debug.Log("only gravity");
+            
             dir.x = 0;
             dir.y = 0;
             dir += p.yVel * Vector3.up * Time.deltaTime;
-            p.obj.transform.Translate(dir);
         }
+
+        p.obj.transform.Translate(dir);
 
 
         //float MyDirection;
@@ -189,11 +190,13 @@ struct Part{
     public GameObject obj;
     public Vector3 momentum;
     public bool grounded;
+    public bool isHead;
     public float yVel;
-    public Part(GameObject g){
+    public Part(GameObject g, bool ishead){
         obj = g;
         momentum = new Vector3();
         grounded = false;
         yVel = 0;
+        isHead = ishead;
     }
 }

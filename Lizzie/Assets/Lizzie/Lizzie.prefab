@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 3823368154981203686}
   - component: {fileID: 3823368154981203683}
   - component: {fileID: 3823368154981203682}
-  - component: {fileID: 3823368154981203681}
+  - component: {fileID: 3383559671004123844}
   m_Layer: 3
   m_Name: Head
   m_TagString: Player
@@ -375,7 +375,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3823368154981203681
+--- !u!135 &3383559671004123844
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
