@@ -93,7 +93,7 @@ SphereCollider:
   m_GameObject: {fileID: 3823368153756411720}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -190,7 +190,7 @@ SphereCollider:
   m_GameObject: {fileID: 3823368154528342168}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -287,7 +287,7 @@ SphereCollider:
   m_GameObject: {fileID: 3823368154831101949}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -302,7 +302,7 @@ GameObject:
   - component: {fileID: 3823368154981203686}
   - component: {fileID: 3823368154981203683}
   - component: {fileID: 3823368154981203682}
-  - component: {fileID: 3383559671004123844}
+  - component: {fileID: 5344817794475334865}
   m_Layer: 3
   m_Name: Head
   m_TagString: Player
@@ -375,8 +375,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3383559671004123844
-SphereCollider:
+--- !u!143 &5344817794475334865
+CharacterController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -386,7 +386,12 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
+  m_Height: 1
   m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3823368155020106254
 GameObject:
@@ -485,6 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df2c6e3c73d0714cb0610b7ab2c635b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headController: {fileID: 5344817794475334865}
   Head: {fileID: 3823368154981203685}
   Body1: {fileID: 3823368154528342168}
   Body2: {fileID: 3823368155168717083}
@@ -494,11 +500,11 @@ MonoBehaviour:
   Solid:
     serializedVersion: 2
     m_Bits: 64
-  speedmult: 3
+  speedmult: 30
   maxStretch: 1
   spring: 0.1
-  friction: 1
-  Gravity: 2
+  friction: 0.55
+  Gravity: 20
   rayPrecision: 16
 --- !u!1 &3823368155168717083
 GameObject:
@@ -593,7 +599,7 @@ SphereCollider:
   m_GameObject: {fileID: 3823368155168717083}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -623,7 +629,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3823368155172747262}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 2.1569998, y: 0, z: 0}
   m_LocalScale: {x: 0.4625, y: 0.4625, z: 0.4625}
   m_ConstrainProportionsScale: 0
@@ -690,7 +696,7 @@ SphereCollider:
   m_GameObject: {fileID: 3823368155172747262}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}

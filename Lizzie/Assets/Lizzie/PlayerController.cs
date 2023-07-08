@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,6 +6,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public CharacterController headController;
     Vector2 move;
     Lizzie controls;
     public GameObject Head;
@@ -18,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public float maxStretch;
     public float spring;
     public float friction;
+    int strength;
     float Ym;
     float Xm;
     public float Gravity;
@@ -63,25 +66,36 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(head.momentum.y);
         
-        head.momentum.x += move.x * Time.deltaTime;
-        head.momentum.y += move.y * 10 * Time.deltaTime;
-        head.momentum.y -= Gravity * Time.deltaTime;
-
         GroundCheck(ref head);
         GroundCheck(ref body1);
         GroundCheck(ref body2); 
         GroundCheck(ref body3); 
         GroundCheck(ref body4); 
-        GroundCheck(ref body5); 
+        GroundCheck(ref body5);
 
+        check_touching();
+        
+        head.momentum.x += move.x * speedmult* Time.deltaTime;
+        if(head.grounded)
+        {
+            head.momentum.y += move.y * 10 * Time.deltaTime;
+        }
+        else
+        {
+            head.momentum.y -= Gravity * (strength/6) * Time.deltaTime;
+            if (strength < 6) { head.momentum.y += move.y * 4 * Time.deltaTime; }
+        }
+       
         FollowObject(head, ref body1);
         FollowObject(body1, ref body2);
         FollowObject(body2, ref body3);
         FollowObject(body3, ref body4);
         FollowObject(body4, ref body5);
-               
-        head.obj.transform.Translate(head.momentum * speedmult * Time.deltaTime);
+
+        
+        headController.Move(head.momentum * Time.deltaTime);
     }
 
     void GroundCheck(ref Part p){
@@ -90,6 +104,8 @@ public class PlayerController : MonoBehaviour
         // Loop by ray precision to cast rays around part
         p.grounded = false;
         for(int i=0; i<rayPrecision; i++){
+            
+            /****************** Math for Raycast *******************/
             // Store individual hit info
             hitInfo[i] = new RaycastHit();
             // X coordinate of new angle
@@ -100,13 +116,15 @@ public class PlayerController : MonoBehaviour
             angle += 2*Mathf.PI/rayPrecision;
             // Get vector from x and y coordinates based off of part's position
             Vector3 Dir=new Vector3(p.obj.transform.position.x+x,p.obj.transform.position.y+y,0);
+            /********************************************************/
 
-            
+
             // // // // TODO: Double check raycast magnitude for body parts, 0.6f scale barely peek out of head
-            if(Physics.Raycast(p.obj.transform.position, new Vector3(Dir.x-p.obj.transform.position.x,Dir.y-p.obj.transform.position.y,0),out hitInfo[i],gameObject.transform.localScale.x * 0.6f, Solid)){
+            if (Physics.Raycast(p.obj.transform.position, new Vector3(Dir.x-p.obj.transform.position.x,Dir.y-p.obj.transform.position.y,0),out hitInfo[i],gameObject.transform.localScale.x * 0.6f, Solid)){
                 p.grounded = true;
                 // Keeps us above the surface without effecting momentum
-                p.momentum += new Vector3(Dir.x-p.obj.transform.position.x,Dir.y-p.obj.transform.position.y,0) * -1f;
+                p.momentum += new Vector3(0, Dir.y - p.obj.transform.position.y, 0) *-1;
+
                 // calc slope
                 float slope = Vector3.Angle(Vector3.up, hitInfo[i].normal);
 
@@ -114,15 +132,17 @@ public class PlayerController : MonoBehaviour
                     if(Mathf.Abs(move.x) < 0.1f){
                         p.momentum.x = 0;
                     }
-                    if(Mathf.Abs(move.y) <= 0.1f){
-                        p.momentum.y = 0;
-                    }
                 }
-                else{
+                if (Mathf.Abs(move.y) < 0.1f)
+                {
                     p.momentum.y = 0;
-                }  
+                }
+               
             }
         }
+
+        p.momentum.x *= Mathf.Pow(friction, Time.deltaTime);
+
     }
 
     void FollowObject(Part toFollow, ref Part p){
@@ -156,34 +176,39 @@ public class PlayerController : MonoBehaviour
 
         p.obj.transform.Translate(dir);
 
-
-        //float MyDirection;
-        //float TargetX;
-        //float TargetY =0;
-        /**
-        if(p.obj.transform.position.y>toFollow.obj.transform.position.y){
-            MyDirection = (Mathf.Atan((gameObject.transform.position.x-toFollow.obj.transform.position.x)/(gameObject.transform.position.y-toFollow.obj.transform.position.y)))+(Mathf.Deg2Rad * 180);
-        }
-        else{
-            MyDirection = Mathf.Atan((gameObject.transform.position.x-toFollow.obj.transform.position.x)/(gameObject.transform.position.y-toFollow.obj.transform.position.y));
-        }
-        **/
-
-        //TargetX = toFollow.obj.transform.position.x - maxStretch*Mathf.Sin(MyDirection);
-        //TargetY = toFollow.obj.transform.position.y - maxStretch*Mathf.Cos(MyDirection);
-
-        
-        //p.momentum += new Vector3((TargetX-gameObject.transform.position.x)/spring,((TargetY-gameObject.transform.position.y)/spring),0) * Time.deltaTime;
-        //p.momentum *= Mathf.Pow(friction, Time.deltaTime);
-
-        //float distance = Vector3.Distance(toFollow.obj.transform.position, p.obj.transform.position);
-
-        //p.obj.transform.position += p.momentum *Time.deltaTime;
-        
-        //p.obj.transform.LookAt(toFollow.obj.transform, Vector3.up);
-        //p.obj.transform.Translate(transform.forward * (distance-maxStretch));
-        //p.obj.transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y, 0);
     }
+
+    void check_touching()
+    {
+        strength = 0;
+
+        if (!head.grounded) {
+            strength += 1;
+        }
+        if (!body1.grounded)
+        {
+            strength += 1;
+        }
+        if (!body2.grounded)
+        {
+            strength += 1;
+        }
+        if(!body3.grounded){
+            strength +=1;
+        }
+        if (!body4.grounded)
+        {
+            strength += 1;
+        }
+        if (!body5.grounded)
+        {
+            strength += 1;
+        }
+        Debug.Log(strength);
+
+    }
+
+
 }
 
 struct Part{
